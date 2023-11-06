@@ -57,6 +57,7 @@ def merge_clash(configs:List[str]) -> str:
         if 'proxies' not in tmp_config: continue
         for j in range(len(tmp_config['proxies'])):
             proxy:Dict[str, Any] = tmp_config['proxies'][j]
+            if proxy['type'] not in ['vmess', 'trojan', 'ss', 'ssr']: continue
             if any(filter(lambda p:p[0] == proxy['server'] and str(p[1]) == str(proxy['port']), blacklist)): continue
             if any(filter(lambda p:p['server'] == proxy['server'] and p['port'] == proxy['port'], proxies)): continue
             proxy['name'] = proxy['name'] + f'_{i}@{j}'
